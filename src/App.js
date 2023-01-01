@@ -1,12 +1,18 @@
 import { useState } from "react";
-import ShowPdf from "./showpdf";
+// import ShowPdf from "./showpdf";
+
+//  import Default class form annotate
+import Annote from "./annotate";
+
+
+
 
 import "./App.css";
 function App() {
   const [sam, setFile] = useState("");
 
   const [page, setPage] = useState(1);
-  const sample = "./1.pdf";
+  
   return (
     <div className="App">
       <header className="App-header">
@@ -65,8 +71,10 @@ function App() {
 
         </div>
 
-        {sam && <ShowPdf file={sam} />}
+        {/* {sam && <ShowPdf file={sam} />} */}
+       
       </div>
+        {sam && <Annote file={sam} />}
     </div>
   );
 }

@@ -1,23 +1,72 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import ShowPdf from "./showpdf";
 
+import "./App.css";
 function App() {
+  const [sam, setFile] = useState("");
+
+  const [page, setPage] = useState(1);
+  const sample = "./1.pdf";
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>Documents</h1>
       </header>
+      <main>
+        <ul>
+          <li
+            onClick={() => {
+              setFile("./pdf/2212.08011.pdf");
+            }}
+          >
+            {" "}
+            Sample document 1.pdf
+          </li>
+          <li
+            onClick={() => {
+              setFile("./pdf/2212.07937.pdf");
+            }}
+          >
+            {" "}
+            Sample document 2.pdf
+          </li>
+          <li
+            onClick={() => {
+              setFile("./pdf/2212.07931.pdf");
+            }}
+          >
+            {" "}
+            Sample document 3.pdf
+          </li>
+        </ul>
+      </main>
+      <div className="pdf-container"
+        style={{
+          width: "100%",
+          height: "750px",
+        }}
+      >
+        <div className="left-side">
+          <div>
+            <h2>Label</h2>
+            <hr />
+
+           <h3 className="title">Title</h3>
+
+           <h3 className="author">Author</h3>
+
+
+          </div>
+          <div >
+            <h2>Boxes</h2>
+            <hr />
+
+          </div>
+
+        </div>
+
+        {sam && <ShowPdf file={sam} />}
+      </div>
     </div>
   );
 }

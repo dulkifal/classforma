@@ -1,11 +1,4 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+ 
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
@@ -14,15 +7,75 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  padding: 3rem;
+  
+  
   display: flex;
   flex-direction: column;
-  align-items: center;
+ 
+  
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  
 }
+.App-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  width: 50%;
+   
+  margin: 0;
+  padding: 0;
+border-bottom: 1px solid #61dafb;
+
+}
+main ul li {
+  color: rgb(58, 140, 222);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.pdf-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+   
+  
+}
+.left-side{
+  width: 50%;
+  height: 100%;
+  display: flex;
+  padding: 2rem;
+  
+  flex-direction: column;
+   
+}
+.left-side div{
+  
+ 
+  margin: 1rem;
+  padding: 1rem;
+  height: 50%;
+ 
+}
+
+.left-side h3 {
+  display: inline-block;
+  margin: 1rem;
+  padding: .5rem;
+  
+}
+
+.left-side .title {
+  background: rgb(232, 100, 12);
+   
+  
+}
+.left-side .author {
+  background: rgb(25, 222, 18);
+   
+  
+}
+  
 
 .App-link {
   color: #61dafb;

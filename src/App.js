@@ -111,11 +111,11 @@ function App() {
                 return (
                   <div key={index}>
                     <p>
-                     x: {annot.x1}, 
+                     x: {Math.round(annot.x1)}, 
                     </p>
-                    <p>y: {annot.y1}, </p>
-                    <p>width:  {annot.x2}, </p>
-                    <p>hight: {annot.y2}</p>
+                    <p>y: {Math.round(annot.y1)}, </p>
+                    <p>width:  {Math.round(annot.x2 - annot.x1)}, </p>
+                    <p>hight: {Math.round(annot.y2 - annot.y1)}</p>
                   </div>
                 );
               })

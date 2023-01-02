@@ -34,7 +34,7 @@ function App() {
                 data.label = status
 
                 
-                setAnnotations((annots) => [...annots,  data]);
+                setAnnotations(annots => [...annots,  data]);
                 
                localStorage.setItem('data', JSON.stringify(data))
               }
@@ -123,10 +123,10 @@ function App() {
             {annots.map((annot, index) => {
               return (
                 <div key={index} className="boxes">
-                  <p>x: {Math.round(annot.x1)},</p>
-                  <p>y: {Math.round(annot.y1)}, </p>
-                  <p>width: {Math.round(annot.x2 - annot.x1)}, </p>
-                  <p>hight: {Math.round(annot.y2 - annot.y1)}</p>
+                  <p>x: {Math.round(annot.x)},</p>
+                  <p>y: {Math.round(annot.y)}, </p>
+                  <p>width: {Math.round(annot.width)}, </p>
+                  <p>hight: {Math.round(annot.hight)}</p>
                    {annot.label === "title" ? (
                     <button className="title">Title</button>
                   ) : (

@@ -97,7 +97,7 @@ function App() {
               className="title"
               onClick={() => {
                 console.log(localStorage.getItem("x"));
-                console.log(localStorage.getItem("y"));
+               
               }}
             >
               Title
@@ -106,6 +106,20 @@ function App() {
           </div>
           <div>
             <h2>Boxes</h2>
+            {
+              annots.map((annot, index) => {
+                return (
+                  <div key={index}>
+                    <p>
+                     x: {annot.x1}, 
+                    </p>
+                    <p>y: {annot.y1}, </p>
+                    <p>width:  {annot.x2}, </p>
+                    <p>hight: {annot.y2}</p>
+                  </div>
+                );
+              })
+            }
             <hr />
           </div>
         </div>

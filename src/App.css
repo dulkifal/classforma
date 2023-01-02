@@ -1,93 +1,62 @@
- 
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  padding: 3rem;
-  
-  
+ .App-header {
+  padding-top: 1rem;
+  padding-left: 1rem;
   display: flex;
   flex-direction: column;
- 
-  
   justify-content: center;
-  font-size: calc(10px + 2vmin);
   
 }
 .App-header h1 {
   font-size: 2rem;
   font-weight: 700;
   width: 50%;
-   
   margin: 0;
   padding: 0;
-border-bottom: 1px solid #61dafb;
-
+  
+  border-bottom: 1px solid rgb(58, 140, 222);
 }
 main ul li {
   color: rgb(58, 140, 222);
   font-size: 1.5rem;
   font-weight: 700;
+  /* mouse hover poiter */
+  cursor: pointer;
 }
 .pdf-container {
   width: 100%;
   height: 100%;
   display: flex;
-   
-  
 }
-.left-side{
+.left-side {
   width: 50%;
   height: 100%;
   display: flex;
   padding: 2rem;
-  
   flex-direction: column;
-   
 }
-.left-side div{
-  
- 
-  
+.left-side div {
   padding: 1rem;
- 
- 
 }
 
 .left-side button {
   display: inline-block;
   margin: 1rem;
-  padding: .5rem;
+  padding: 0.5rem;
   border: none;
 }
 
 .left-side .title {
   background: rgb(232, 100, 12);
-   
-  
 }
 .left-side .author {
   background: rgb(25, 222, 18);
-   
-  
 }
-  
- .boxes p{
-   display: inline-block;
-    margin: 0;
-    font-size: 1.2rem;
-    font-weight: 400;
-    padding-right: 1rem;
- }
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+.boxes p {
+  display: inline-block;
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 400;
+  padding-right: 1rem;
 }
+ 

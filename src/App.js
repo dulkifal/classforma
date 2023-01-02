@@ -7,7 +7,8 @@ function App() {
   const viewer = useRef(null);
   const [file, setFile] = useState("");
   const [status, setStatus] = useState("");
-  const [annots, setAnnotations] = useState([]);
+  
+  const [annots, setAnnotations] = useState(localStorage.getItem('data') ? JSON.parse(localStorage.getItem('data')) : []);
 
   useEffect(() => {
     WebViewer(
@@ -18,29 +19,29 @@ function App() {
       viewer.current
     ).then((instance) => {
       const { documentViewer, annotationManager, Annotations } = instance.Core;
-
+      let data = {}
       annotationManager.addEventListener(
         "annotationChanged",
         (annotations, action) => {
           if (action === "add") {
             annotations.forEach((annot) => {
               if (annot instanceof Annotations.RectangleAnnotation) {
-                const rect = annot.getRect();
-                rect.X = Math.round(rect.X);
-                rect.Y = Math.round(rect.Y);
-                rect.Width = Math.round(rect.Width);
-                rect.Height = Math.round(rect.Height);
-                // rect.FillColor =  new Annotations.Color(0, 255, 0, 0.3);
-                // rect.Author =  status;
+                
+                data.x = annot.getRect().x1
+                data.y = annot.getRect().y1
+                data.width = annot.getRect().x2 - annot.getRect().x1
+                data.height = annot.getRect().y2 - annot.getRect().y1
+                data.label = status
 
-                console.log(status);
-                annot.setRect(rect);
-                setAnnotations((annots) => [...annots, annot.getRect()]);
+                
+                setAnnotations((annots) => [...annots,  data]);
+                
+               localStorage.setItem('data', JSON.stringify(data))
               }
             });
           }
         }
-      );
+        );
     });
   }, [file]);
 
@@ -77,11 +78,13 @@ function App() {
       </ul>
     );
   };
-  console.log(annots);
+  
   return (
     <div className="App">
       <header className="App-header">
         <h1>Documents</h1>
+        <hr />
+        
       </header>
       <main>
         <LiMap />
@@ -124,6 +127,11 @@ function App() {
                   <p>y: {Math.round(annot.y1)}, </p>
                   <p>width: {Math.round(annot.x2 - annot.x1)}, </p>
                   <p>hight: {Math.round(annot.y2 - annot.y1)}</p>
+                   {annot.label === "title" ? (
+                    <button className="title">Title</button>
+                  ) : (
+                    <button className="author">Author</button>
+                  )}
                 </div>
               );
             })}

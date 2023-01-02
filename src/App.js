@@ -2,10 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import WebViewer from "@pdftron/webviewer";
 
 import "./App.css";
- 
+
 function App() {
   const viewer = useRef(null);
   const [file, setFile] = useState("");
+  const [annots, setAnnotations] = useState([]);
 
   useEffect(() => {
     WebViewer(
@@ -30,52 +31,49 @@ function App() {
                 rect.Height = Math.round(rect.Height);
 
                 annot.setRect(rect);
-                console.log(annot.getRect());
-                // store x and y of rectangle in local storage
-                localStorage.setItem("x", annot.getRect().X);
-                localStorage.setItem("y", annot.getRect().Y);
+                setAnnotations((annots) => [...annots, annot.getRect()]);
               }
             });
-            // console x and y of rectangle
           }
         }
       );
     });
   }, [file]);
- 
-const LiMap = () => {
-  const myArray = [
-    {
-      name: " Sample document 1.pdf",
-      fileUrl: "./pdf/2212.08011.pdf",
-    },
-    {
-      name: " Sample document 2.pdf",
-      fileUrl: "./pdf/2212.07937.pdf",
-    },
-    {
-      name: " Sample document 3.pdf",
-      fileUrl: "./pdf/2212.07931.pdf",
-    },
-  ];
-  return (
-    <ul>
-      {myArray.map((item) => {
-        return (
-          <li
-            onClick={() => {
-              setFile(item.fileUrl);
-            }}
-          >
-            {" "}
-            {item.name}
-          </li>
-        );
-      })}
-    </ul>
-  );
-};
 
+  const LiMap = () => {
+    const myArray = [
+      {
+        name: " Sample document 1.pdf",
+        fileUrl: "./pdf/2212.08011.pdf",
+      },
+      {
+        name: " Sample document 2.pdf",
+        fileUrl: "./pdf/2212.07937.pdf",
+      },
+      {
+        name: " Sample document 3.pdf",
+        fileUrl: "./pdf/2212.07931.pdf",
+      },
+    ];
+    return (
+      <ul>
+        {myArray.map((item, index) => {
+          return (
+            <li
+              onClick={() => {
+                setFile(item.fileUrl);
+              }}
+              key={index}
+            >
+              {" "}
+              {item.name}
+            </li>
+          );
+        })}
+      </ul>
+    );
+  };
+  console.log(annots);
   return (
     <div className="App">
       <header className="App-header">
@@ -95,7 +93,15 @@ const LiMap = () => {
           <div>
             <h2>Label</h2>
             <hr />
-            <button className="title">Title</button>
+            <button
+              className="title"
+              onClick={() => {
+                console.log(localStorage.getItem("x"));
+                console.log(localStorage.getItem("y"));
+              }}
+            >
+              Title
+            </button>
             <button className="author">Author</button>
           </div>
           <div>
@@ -119,4 +125,3 @@ const LiMap = () => {
 }
 
 export default App;
-

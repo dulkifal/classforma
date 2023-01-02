@@ -1,17 +1,55 @@
-import { useState } from "react";
-// import ShowPdf from "./showpdf";
-
-//  import Default class form annotate
-import Annote from "./annotate";
+import { useEffect, useRef, useState } from "react";
+import WebViewer from "@pdftron/webviewer";
 
 
 
 
 import "./App.css";
 function App() {
-  const [sam, setFile] = useState("");
+   const viewer = useRef(null);
+  const [file, setFile] = useState("");
 
-  const [page, setPage] = useState(1);
+    useEffect(() => {
+   
+   
+
+    WebViewer(
+      {
+        path: "/webviewer/lib",
+        initialDoc:  file,
+      },
+      viewer.current
+    ).then((instance) => {
+      const { documentViewer, annotationManager, Annotations } = instance.Core;
+      
+ annotationManager.addEventListener('annotationChanged', (annotations, action) => {
+      if (action === 'add') {
+        annotations.forEach(annot => {
+          if (annot instanceof Annotations.RectangleAnnotation) {
+            const rect = annot.getRect();
+            rect.X = Math.round(rect.X);
+            rect.Y = Math.round(rect.Y);
+            rect.Width = Math.round(rect.Width);
+            rect.Height = Math.round(rect.Height);
+
+            annot.setRect(rect);
+            console.log(annot.getRect());
+            // store x and y of rectangle in local storage
+            localStorage.setItem('x', annot.getRect().X);
+            localStorage.setItem('y', annot.getRect().Y);
+
+          }
+        });
+        // console x and y of rectangle
+
+      }
+    });
+    });
+
+  
+  }, [file ]);
+
+
   
   return (
     <div className="App">
@@ -48,11 +86,11 @@ function App() {
       </main>
       <div className="pdf-container"
         style={{
-          // width: "100%",
-          // height: "750px",
+          width: "100%",
+          height: "750px",
         }}
       >
-        {/* <div className="left-side">
+        <div className="left-side">
           <div>
             <h2>Label</h2>
             <hr />
@@ -69,12 +107,17 @@ function App() {
 
           </div>
 
-        </div> */}
+        </div>
 
-        {/* {sam && <ShowPdf file={sam} />} */}
+        {file &&
+         <div className="MyComponent" style={{ width: "100%"   }}>
+      
+      <div className="webviewer" ref={viewer} style={{ height: "100vh"   }}></div>
+    </div>
+        }
        
       </div>
-         <Annote   /> 
+         
     </div>
   );
 }

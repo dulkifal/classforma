@@ -4,6 +4,9 @@ import WebViewer from "@pdftron/webviewer";
 const MyComponent = ({ file }) => {
   const viewer = useRef(null);
   useEffect(() => {
+   
+   
+
     WebViewer(
       {
         path: "/webviewer/lib",
@@ -11,25 +14,24 @@ const MyComponent = ({ file }) => {
       },
       viewer.current
     ).then((instance) => {
-      const { docViewer,  Annotations} = instance;
-      const annotManager = docViewer.getAnnotationManager()
-
-      docViewer.on("documentLoaded", () => {
-        const rectangleAnnot = new Annotations.RectangleAnnotation();
-        rectangleAnnot.PageNumber = 1;
-
-        rectangleAnnot.x = 100;
-        rectangleAnnot.y = 150;
-        rectangleAnnot.width = 200;
-        rectangleAnnot.height = 50;
-        rectangleAnnot.Author = annotManager.getCurrentUser();
-
-        annotManager.addAnnotation(rectangleAnnot);
-
-        annotManager.redrawAnnotation(rectangleAnnot);
+      const { documentViewer, annotationManager, Annotations } = instance.Core;
+      
+  documentViewer.addEventListener('annotationsLoaded', () => {
+      const annot = new Annotations.RectangleAnnotation({
+        PageNumber: 1,
+        X: 100,
+        Y: 50,
+        Width: 150,
+        Height: 55,
+        StrokeColor: new Annotations.Color(0, 255, 0, 1), 
+        Author : "dulkifal"
       });
+       annotationManager.addAnnotation(annot);
+      annotationManager.redrawAnnotation(annot);
     });
-  }, []);
+  });
+  }, [ ]);
+
 
   return (
     <div className="MyComponent">

@@ -8,7 +8,8 @@ function App() {
   const [file, setFile] = useState("");
   const [status, setStatus] = useState("");
   
-  const [annots, setAnnotations] = useState(localStorage.getItem('data') ? JSON.parse(localStorage.getItem('data')) : []);
+  const [annots, setAnnotations] = useState( JSON.parse(localStorage.getItem("annots")) || []);
+  localStorage.setItem("annots", JSON.stringify(annots));
 
   useEffect(() => {
     WebViewer(
@@ -27,21 +28,47 @@ function App() {
             annotations.forEach((annot) => {
               if (annot instanceof Annotations.RectangleAnnotation) {
                 
-                data.x = annot.getRect().x1
-                data.y = annot.getRect().y1
-                data.width = annot.getRect().x2 - annot.getRect().x1
-                data.height = annot.getRect().y2 - annot.getRect().y1
-                data.label = status
+                data = {
+                  x: annot.getX(),
+                  y: annot.getY(),
+                  width: annot.getWidth(),
+                  hight: annot.getHeight(),
+                  label: status,
+                };
+
 
                 
                 setAnnotations(annots => [...annots,  data]);
                 
-               localStorage.setItem('data', JSON.stringify(data))
+               
               }
             });
           }
         }
         );
+
+        documentViewer.on("documentLoaded", () => {
+          annots.forEach((annot) => {
+            const rectangle = new Annotations.RectangleAnnotation();
+            rectangle.PageNumber = 1;
+            rectangle.X = annot.x;
+            rectangle.Y = annot.y;
+            rectangle.Width = annot.width;
+            rectangle.Height = annot.hight;
+            rectangle.StrokeColor = new Annotations.Color(0, 255, 0, 3);
+            rectangle.Author = "Me";
+            rectangle.Label = annot.label;
+            annotationManager.addAnnotation(rectangle);
+            annotationManager.redrawAnnotation(rectangle);
+
+            annotationManager.selectAnnotation(rectangle);
+
+          });
+
+        });
+
+
+
     });
   }, [file]);
 

@@ -76,11 +76,13 @@ main ul li {
   
 }
   
-
-.App-link {
-  color: #61dafb;
-}
-
+ .boxes p{
+   display: inline-block;
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 400;
+    padding-right: 1rem;
+ }
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

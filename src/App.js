@@ -6,6 +6,7 @@ import "./App.css";
 function App() {
   const viewer = useRef(null);
   const [file, setFile] = useState("");
+  const [status, setStatus] = useState("");
   const [annots, setAnnotations] = useState([]);
 
   useEffect(() => {
@@ -29,7 +30,10 @@ function App() {
                 rect.Y = Math.round(rect.Y);
                 rect.Width = Math.round(rect.Width);
                 rect.Height = Math.round(rect.Height);
+                // rect.FillColor =  new Annotations.Color(0, 255, 0, 0.3);
+                // rect.Author =  status;
 
+                console.log(status);
                 annot.setRect(rect);
                 setAnnotations((annots) => [...annots, annot.getRect()]);
               }
@@ -96,31 +100,33 @@ function App() {
             <button
               className="title"
               onClick={() => {
-                console.log(localStorage.getItem("x"));
-               
+                setStatus("title");
               }}
             >
               Title
             </button>
-            <button className="author">Author</button>
+            <button
+              className="author"
+              onClick={() => {
+                setStatus("author");
+              }}
+            >
+              Author
+            </button>
           </div>
           <div>
             <h2>Boxes</h2>
-            {
-              annots.map((annot, index) => {
-                return (
-                  <div key={index}>
-                    <p>
-                     x: {Math.round(annot.x1)}, 
-                    </p>
-                    <p>y: {Math.round(annot.y1)}, </p>
-                    <p>width:  {Math.round(annot.x2 - annot.x1)}, </p>
-                    <p>hight: {Math.round(annot.y2 - annot.y1)}</p>
-                  </div>
-                );
-              })
-            }
             <hr />
+            {annots.map((annot, index) => {
+              return (
+                <div key={index} className="boxes">
+                  <p>x: {Math.round(annot.x1)},</p>
+                  <p>y: {Math.round(annot.y1)}, </p>
+                  <p>width: {Math.round(annot.x2 - annot.x1)}, </p>
+                  <p>hight: {Math.round(annot.y2 - annot.y1)}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
 

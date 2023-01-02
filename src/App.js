@@ -48,11 +48,11 @@ function App() {
       </main>
       <div className="pdf-container"
         style={{
-          width: "100%",
-          height: "750px",
+          // width: "100%",
+          // height: "750px",
         }}
       >
-        <div className="left-side">
+        {/* <div className="left-side">
           <div>
             <h2>Label</h2>
             <hr />
@@ -69,12 +69,12 @@ function App() {
 
           </div>
 
-        </div>
+        </div> */}
 
         {/* {sam && <ShowPdf file={sam} />} */}
        
       </div>
-        {sam && <Annote file={sam} />}
+         <Annote   /> 
     </div>
   );
 }
